@@ -1,0 +1,38 @@
+---
+title: "Reclassifying LANDSAT"
+output: html_notebook
+author: "Emily Bean"
+---
+
+
+```{r echo = FALSE, cache = TRUE, warning = FALSE}
+# set knitr options later
+library("tidyverse")
+library("raster")
+library("rgdal")
+```
+
+
+# Workflow  
+1. Build reclassification matrix and define a function that inputs a dataframe of Albeke model output data and outputs an "is/becomes" reclassification matrix. 
+*Note: the decisions used to reclassify are in "reclassDecisions.ppt"*  
+2. Reclassify all LANDSAT .tifs 
+3. Mosaic the reclassified rasters together 
+
+### 1: build reclassification matrix
+
+```{#r}
+# read reclassification function 
+# read in 1984 data and create reclassification matrix
+source("reclassFunction_final.R")
+
+```
+
+```{r}
+# because the above chunk takes a long time to run, read in reclassification matrix from file
+rclMat <- read.table("finalizedReclassMatrix.txt", sep = "\t", header = TRUE)
+```
+
+
+### 2: Reclassify all LANDSAT .tifs
+
